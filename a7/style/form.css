@@ -2,7 +2,7 @@
 main {
   padding-top: 100px;
   background-color: var(--gris);
-  min-height: 105vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,17 +11,44 @@ main {
 }
 
 header{
-    border-bottom: solid var(--violetclr) 2px;
+    border-bottom: solid var(--grisfoncé) 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+    background-color:#1b3d85;
+    align-items: center;
+    height: 120px;
+    
+}
+
+.liens{
+
+display: flex;
+gap: 10px;
+font-size: 23px;
+font-family: Inter;
+
+font-weight: 400;
+}
+
+.liens>a{
+  color: var(--rouge);
+}
+.liens>a:hover{
+  color: var(--gris);
 }
 
 #logo {
-  color: var(--violetclr);
+  color: var(--rouge);
+}
+#logo:hover{
+  color: var(--gris);
 }
 
 form {
   display: flex;
-  flex-direction: column;
+  ;
   gap: 20px;
   padding: 10px;
   min-height: 250px;
@@ -31,7 +58,7 @@ fieldset {
   border: solid;
   border-radius: 7px;
 
-  color: var(--rouge);
+  color: black;
 }
 
 legend {
@@ -81,7 +108,7 @@ input {
   transition: ease-in-out 100ms;
 }
 
-/*footer{
+footer{
     min-height: 15vh;
     max-height: 20vh;
     padding: 2px;
@@ -91,12 +118,12 @@ footer>a{
  top: 50px;
  
 }
-*/
-/*footer {
+
+footer {
     min-height: 15vh;
     max-height: 20vh;
     padding: 20px;
-    display: flex; 
+    display: none; 
     flex-direction: row; 
     align-items: center;
     font-size: larger; 

@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
 header{
     border-bottom: 2px var(--jaune) solid;
     color: black;
@@ -9,6 +15,7 @@ header{
     align-items:  center;
     flex-direction: column;
     gap: 5px;
+    background-color: var(--gris);
     /*justify-content: space-around;*/  
       
 }
@@ -156,9 +163,15 @@ footer{
     position: static;
     min-height: 15vh;
     width: 100%;
+    background-color: var(--gris);
+    
   
     
 
+}
+footer a{
+    
+    color: black;
 }
 
 @media screen and (max-width: 1200px){
