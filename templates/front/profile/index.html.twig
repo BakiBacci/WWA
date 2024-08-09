@@ -1,0 +1,61 @@
+{% extends "front/base.html.twig" %}
+
+{% block title %}
+	{{ parent() }}Listes des commandes
+{% endblock %}
+
+{% block body %}
+	<main>
+		<h1 class="mb-5">Liste des commandes</h1>
+
+		<section>
+			{% if orders is not null %}
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">{{ knp_pagination_sortable(orders,'#', 'o.id' )}}</th>
+							<th scope="col">{{ knp_pagination_sortable(orders,'Commande', 'o.orderNumber' )}}</th>
+							<th scope="col">{{ knp_pagination_sortable(orders,'Email', 'c.email' )}}</th>
+							<th scope="col">{{ knp_pagination_sortable(orders,'Date', 'o.createdAt')}}</th>
+							<th scope="col">{{ knp_pagination_sortable(orders,'Status', 'o.status')}}</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Commande</th>
+							<th scope="col">Email</th>
+							<th scope="col">Date</th>
+							<th scope="col">Status</th>
+						</tr>
+					</tfoot>
+					{% for order in orders %}
+						<tbody>
+							<tr>
+								<th scope="row">
+									{{ order.id}}
+								</th>
+								<td>
+									<a href={{ path('front_profile_show', { 'id': order.id} )}}>
+										{{ order.orderNumber }}
+									</a>
+								</td>
+								<td>
+									{{ order.customer.email }}
+								</td>
+								<td>
+									{{ order.createdAt|date('d/m/Y') }}
+								</td>
+								<td>
+									{{ order.status.value }}
+								</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+				</table>
+				{{ knp_pagination_render(orders) }}
+			{% endif %}
+		</section>
+
+	</main>
+{% endblock %}

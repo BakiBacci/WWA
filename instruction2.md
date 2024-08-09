@@ -19,3 +19,13 @@ Cette route est protégée, il faut être connecté pour y accéder :
 
         -   **/detail/{id} show**
             -   Affiche le détail d'une facture.
+
+Nicolas
+Kenza
+Assa
+Hugo
+Oura
+Siapri
+Eliesse
+Sofian
+Said

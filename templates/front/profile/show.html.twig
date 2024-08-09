@@ -1,0 +1,21 @@
+{% extends "front/base.html.twig" %}
+
+{% block title %}
+	{{ parent() }}
+	Produits
+{% endblock %}
+
+{% block body %}
+	<main>
+		<p class="mb-3">
+			<a href="{{ path('front_profile_index') }}" class="btn btn-primary">Retour à la liste</a>
+		</p>
+
+		<section>
+			{% if order is not null %}
+				<h2>Commande :
+					{{ order.orderNumber}}</h2>
+			{% endif %}
+		</section>
+	</main>
+{% endblock %}
