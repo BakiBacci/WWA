@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartService
 {
-    private const CART = 'pull';
+    private const CART = 'cart';
     private $session;
 
     public function __construct(

@@ -46,18 +46,9 @@
 			</tr>
 		</table>
 
-		<a href={{ path('front_order_index')}}>Commander</a>
+		{% if app.session.get('cart') is not empty %}
+			<a href={{ path('front_order_index')}}>Commander</a>
+		{% endif %}
+
 	</main>
 {% endblock %}
-
-
-{# Order #}
-{# customer #}
-{# quantity #}
-
-{# OrderItem #}
-
-
-{# 1 | 6786786GHJG | 05/08/2024 | customer | total #}
-
-{#  1 | 12 | 4 |  1 |  price #}
