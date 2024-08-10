@@ -17,8 +17,8 @@ class ProfileController extends AbstractController
     public function index(OrderRepository $orderRepository, Request $request): Response
     {
         $userId = $this->getUser()->getId();
-        // $order = $orderRepository->findOrdersByCustomer($userId);
-        $order = $orderRepository->paginateOrdersByCustomer($request->query->getInt('page', 1), $userId);
+        // $order = $orderRepository->findOrdersByCustomerId($userId);
+        $order = $orderRepository->paginateOrdersByCustomerId($request->query->getInt('page', 1), $userId);
 
         return $this->render('front/profile/index.html.twig', [
             'orders' => $order,

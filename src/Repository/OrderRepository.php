@@ -31,22 +31,22 @@ class OrderRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function paginateOrdersByCustomer(int $page, int $value): PaginationInterface
+    public function paginateOrdersByCustomerId(int $page, int $customerId): PaginationInterface
     {
         return $this->paginator->paginate($this->createQueryBuilder('o')
             ->select('o', 'c')
             ->leftJoin('o.customer', 'c')
-            ->where('c.id = :id')
-            ->setParameter(':id', $value), $page, 3);
+            ->where('c.id = :customerId')
+            ->setParameter(':customerId', $customerId), $page, 3);
     }
 
-    public function findOrdersByCustomer($value): ?array
+    public function findOrdersByCustomerId(int $customerId): ?array
     {
         return $this->createQueryBuilder('o')
             ->select('o', 'c')
             ->leftJoin('o.customer', 'c')
-            ->where('c.id = :id')
-            ->setParameter(':id', $value)
+            ->where('c.id = :customerId')
+            ->setParameter(':customerId', $customerId)
             ->getQuery()
             ->getResult();
     }
