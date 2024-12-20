@@ -25,7 +25,7 @@ class Category
     /**
      * @var Collection<int, Product>
      */
-    // #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category', cascade: ['remove'])]
+    //  #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category', cascade: ['remove'])]
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $products;
 

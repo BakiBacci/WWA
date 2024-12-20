@@ -1,0 +1,84 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block body %}
+<style>
+    /* Utiliser Flexbox pour aligner les formulaires côte à côte */
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 120vh;
+        padding: 20px;
+    }
+
+    /* Styles pour chaque formulaire */
+    .form-section {
+        flex: 1;
+        max-width: 400px;
+        margin: 0 20px;
+    }
+
+    /* Styles pour les champs de formulaire */
+    .uk-form-stacked .uk-form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .uk-form-stacked .uk-input,
+    .uk-form-stacked .uk-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        
+    }
+
+    /* Espacement entre les éléments du formulaire */
+    .uk-form-stacked .uk-margin {
+        margin-bottom: 15px;
+    }
+
+    /* Style pour les boutons */
+    .uk-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="form-container">
+    <div class="form-section">
+        <h2>Connexion</h2>
+        {% if error %}
+            <div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            </div>
+        {% endif %}
+        {{ form_start(loginForm, {'attr': {'class': 'uk-form-stacked'}}) }}
+            {{ form_row(loginForm.email, {'label': 'Adresse email', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(loginForm.password, {'label': 'Mot de passe', 'attr': {'class': 'uk-input'}}) }}
+            <button type="submit" class="uk-button uk-button-primary">Se connecter</button>
+        {{ form_end(loginForm) }}
+    </div>
+
+    <div class="form-section">
+        <h2>Inscription</h2>
+        {{ form_start(registrationForm, {'attr': {'class': 'uk-form-stacked'}}) }}
+            {{ form_row(registrationForm.email, {'label': 'Adresse email', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.lastName, {'label': 'Nom', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.firstName, {'label': 'Prénom', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.address, {'label': 'Adresse', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.zipCode, {'label': 'Code postal', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.city, {'label': 'Ville', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.phoneNumber, {'label': 'Numéro de téléphone', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.plainPassword, {'label': 'Mot de passe', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            <button type="submit" class="uk-button uk-button-success">S'inscrire</button>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}

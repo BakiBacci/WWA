@@ -1,3 +1,83 @@
-<footer class="mt-5 p-2 bg-primary text-white text-center">
-	LumiDesign
+<style>
+    footer {
+        width: 100%;
+        background-color: var(--gris);
+        color: black;
+        display: flex;
+        flex-direction: column;
+        min-height: 30vh;
+    }
+    .footer-main {
+        flex-grow: 1;
+        padding: 20px;
+    }
+    .footer-copyright {
+        background-color: rgba(0,0,0,0.1);
+        padding: 10px 20px;
+    }
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .uk-iconnav {
+        margin: 0;
+    }
+    .uk-iconnav > * {
+        padding-left: 10px;
+    }
+</style>
+
+<footer class="uk-section-secondary uk-light">
+    <div class="footer-main">
+        <div class="footer-content uk-grid-large" uk-grid>
+            <!-- Colonne 1 : Logo et description -->
+            <div class="uk-width-1-3@m">
+                <img src="/images/logo.png" alt="Fenom Logo" class="uk-margin-bottom" width="100">
+                <p class="uk-text-small">Description courte de votre entreprise ou slogan</p>
+            </div>
+            
+            <!-- Colonne 2 : Liens rapides -->
+            <div class="uk-width-1-3@m">
+                <h3 class="uk-h4">Liens rapides</h3>
+                <ul class="uk-list">
+                    <li><a class="uk-link-text" href="{{ path('front_home_index') }}">Accueil</a></li>
+                    <li><a class="uk-link-text" href="{{ path('front_products_list') }}">Produits</a></li>
+                    <li><a class="uk-link-text" href="{{ path('app_about') }}">À propos</a></li>
+                    <li><a class="uk-link-text" href="{{ path('app_contact') }}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Colonne 3 : Informations légales -->
+            <div class="uk-width-1-3@m">
+                <h3 class="uk-h4">Informations légales</h3>
+                <ul class="uk-list">
+                    <li><a class="uk-link-text" href="{{ path('front_home_terms_conditions') }}">Conditions générales</a></li>
+                    <li><a class="uk-link-text" href="{{ path('app_cgv') }}">C.G.V.</a></li>
+                    <li><a class="uk-link-text" href="{{ path('app_faq') }}">F.A.Q.</a></li>
+                    <li><a class="uk-link-text" href="{{ path('app_mentions_legales') }}">Mentions Légales</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-copyright">
+        <div class="uk-container uk-container-expand">
+            <div class="uk-flex uk-flex-between uk-flex-middle">
+                <div>
+                    <p>&copy; {{ "now"|date("Y") }} WeWantAll. Tous droits réservés.</p>
+                </div>
+                <div>
+                    <ul class="uk-iconnav">
+                        <li><a href="https://www.facebook.com" target="_blank" uk-icon="icon: facebook"></a></li>
+                        <li><a href="https://www.twitter.com" target="_blank" uk-icon="icon: twitter"></a></li>
+                        <li><a href="https://www.instagram.com" target="_blank" uk-icon="icon: instagram"></a></li>
+                        <li><a href="https://www.linkedin.com" target="_blank" uk-icon="icon: linkedin"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>

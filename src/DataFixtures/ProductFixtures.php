@@ -21,20 +21,20 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        // for ($i = 0; $i < 50; $i++) {
-        //     $product = new Product();
-        //     $product
-        //         ->setName($this->faker->sentence(3))
-        //         ->setImage($this->faker->imageUrl(width: 800, height: 600))
-        //         ->setPrice($this->faker->randomFloat(2, 10, 100))
-        //         ->setStock($this->faker->numberBetween(0, 1000))
-        //         ->setUpdatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-3 months')))
-        //         ->setCategory($this->getReference('CATEGORY' . mt_rand(0, 9)));
+        for ($i = 0; $i < 50; $i++) {
+            $product = new Product();
+            $product
+                ->setName($this->faker->sentence(3))
+                ->setImage($this->faker->imageUrl(width: 800, height: 600))
+                ->setPrice($this->faker->randomFloat(2, 10, 100))
+                ->setStock($this->faker->numberBetween(0, 1000))
+                ->setUpdatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-3 months')))
+                ->setCategory($this->getReference('CATEGORY' . mt_rand(0, 9)));
 
-        //     $manager->persist($product);
-        // }
+            $manager->persist($product);
+        }
 
-        // $manager->flush();
+        $manager->flush();
     }
 
     public function getDependencies()

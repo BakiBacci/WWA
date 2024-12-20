@@ -1,45 +1,92 @@
-{% extends 'front/base.html.twig' %}
+{% extends "front/base.html.twig" %}
 
-{% block title %}
-	{{ parent()}}Accueil!
-{% endblock %}
+{% block title %}WE WANT ALL ! - Accueil{% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href={{ asset('css/style.css')}}>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .video {
+            position: relative;
+            z-index: -2;
+            width: 100%;
+            height: 100vh; /* Pleine hauteur de la fenêtre */
+            overflow: hidden;
+        }
+        
+        video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .nav-links {
+            margin-top: 20px;
+            margin-left: 20px;
+            text-align: left;
+        }
+        
+        .nav-links a {
+            display: block;
+            margin: 30px 0;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .uk-text_large{
+            text-align: center;
+
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-	<main>
-		<section class="hero mb-5">
-			<h1 class="display-5 fw-bold mb-4">Nos Luminaires</h1>
-			<p class="fs-4">Découvrez notre collection exclusive de luminaires élégants et modernes.</p>
-		</section>
+    <main>
+        <section class="video">
+            <video autoplay loop muted playsinline>
+                <source src="{{ asset('video/index_video.mp4') }}" type="video/mp4">
+            </video>
+        </section>
+        
+        <div class="content uk-light">
+            <h1><a class="uk-logo uk-text-large" href="{{ path('front_home_index') }}">WE WANT ALL!</a></h1>
+            
+            <nav class="nav-links">
+                <a href="{{ path('front_products_list') }}">Store</a>
+                <a href="{{ path('app_auth') }}">Se connecter/Inscription</a>
+                <a href="{{ path('app_about') }}">À propos de nous</a>
+                <a href="{{ path('front_home_terms_conditions') }}">Conditions du site</a>
+            </nav>
+        </div>
+    </main>
+{% endblock %}
 
-		<section>
-			<div class="container">
-				<h2 class="mb-5">Nos nouveautés</h2>
-				<div class="row g-5">
-					{% for product in products %}
-						<div class="col-md-4">
-							<div class="card mb-4">
-								{% if product.image starts with 'http' %}
-									<img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}">
-								{% else %}
-									<img src={{ asset('img/products/' ~ product.image) }} class="card-img-top" alt="{{ product.name }}">
-								{% endif %}
-								<div class="card-body">
-									<h5 class="card-title">{{ product.name }}</h5>
-									<p class="card-text">{{ product.description|slice(0, 50) }}...</p>
-									<a href="{{ path('front_home_show', {'slug': product.slug} ) }}" class="btn btn-primary">En savoir plus</a>
-								</div>
-							</div>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-			<div class="navigation mt-3">
-				{{ knp_pagination_render(products) }}
-			</div>
-		</section>
-	</main>
+{% block javascripts %}
+    <script src="{{ asset('js/main.js') }}" defer></script>
 {% endblock %}

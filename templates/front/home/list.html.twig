@@ -1,0 +1,42 @@
+{% extends "front/base.html.twig" %}
+
+
+{% block title %}{{ parent() }} Produits{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href={{ asset('css/style.css') }}>
+    <link rel="stylesheet" href={{ asset('css/list.css') }}>
+{% endblock %}
+
+{% block body %}
+    
+{% include 'front/partials/_header.html.twig' %}
+    <main>
+        <div id="adBar" class="uk-padding-small uk-text-center">
+            <p class="uk-margin-remove">Livraison gratuite et simple !</p>
+        </div>
+        
+        <h1 class="uk-heading-medium uk-text-center uk-margin-medium-top">Produits populaires</h1>
+        
+        <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-padding" uk-grid>
+            {% for product in products %}
+                <div>
+                    <div class="uk-card uk-card-default uk-card-hover">
+                        <div class="uk-card-media-top">
+                            <img src="{{ asset('img/' ~ product.image) }}" alt="{{ product.name }}">
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">{{ product.name }} - {{ product.price }}€</h3>
+                            <a href="{{ path('front_products_show', {'slug': product.slug}) }}" class="uk-button uk-button-text" style="display: none;">
+                                acheter <span uk-icon="cart"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    
+{% endblock %}

@@ -1,55 +1,58 @@
-{% extends "front/base.html.twig" %}
+  {% extends "front/base.html.twig" %}
+ 
 
 {% block title %}
-	{{ parent()}}Detail
+    {{ parent() }} Détail du produit
 {% endblock %}
 
 {% block body %}
-	<main>
-		<p class="mb-3">
-			<a href="{{ path('front_home_index') }}" class="btn btn-primary">Retour à la liste</a>
-		</p>
+     {% include 'front/partials/_header.html.twig' %}
 
-		<section>
-			{% if product is not null %}
-				<div class="border rounded p-4">
-					<div class="row">
-						<div class="col-md-6">
-							<h1 class="display-4 fw-bold">{{ product.name }}</h1>
-							<p class="lead">{{ product.description }}</p>
-							{% if product.image starts with 'http' %}
-								<img src={{ product.image }} class="w-50 img-fluid rounded mb-3" alt="ssss{{ product.name }}">
-							{% else %}
-								<img src={{ vich_uploader_asset(product, 'imageFile') }} class="w-50 img-fluid rounded mb-3" alt="{{ product.name }}">
-							{% endif %}
-						</div>
-						<div class="col-md-6">
-							<h2 class="text-primary">{{ product.price }}€</h2>
-							<p class="badge bg-{{ product.stock > 0 ? 'success' : 'danger' }}">
-								{{ product.stock > 0 ? 'En stock' : 'Rupture de stock' }}
-							</p>
-							{% if product.stock > 0 %}
-								<a href={{ path('front_cart_add', { 'id': product.id } )}} class="btn btn-primary btn-lg">Ajouter au panier</a>
-							{% else %}
-								<button class="btn btn-secondary btn-lg" disabled>Indisponible</button>
-							{% endif %}
-						</div>
-					</div>
-					<hr class="my-4">
-					<div class="row">
-						<div class="col-md-6">
-							<h5>Prix</h5>
-							<p>{{ product.price }}€</p>
-						</div>
-						<div class="col-md-6">
-							<h5>Catégorie</h5>
-							<p>{{ product.category.name ?? 'N/A' }}</p>
-						</div>
-					</div>
-				</div>
-			{% else %}
-				<p>Produit non trouvé.</p>
-			{% endif %}
-		</section>
-	</main>
+    <main class="uk-container uk-margin-large-top uk-margin-large-bottom">
+        <p class="uk-margin-medium-bottom">
+            <a href={{ path('front_home_index') }} class="uk-button uk-button-primary">Retour à la liste</a>
+        </p>
+
+        <section>
+            {% if product is not null %}
+                <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                    <div class="uk-card-media-left uk-cover-container">
+                       <img src="{{ asset('img/' ~ product.image) }}" alt="{{ product.name }}">
+                        <canvas width="600" height="400"></canvas>
+                    </div>
+                    <div>
+                        <div class="uk-card-body">
+                            <h1 class="uk-card-title uk-text-bold">{{ product.name }}</h1>
+                            {% if product.reference is defined and product.reference %}
+                                <p class="uk-text-meta">Référence: {{ product.reference }}</p>
+                            {% endif %}
+                            <h2 class="uk-text-primary uk-margin-remove-top">{{ product.price }}€</h2>
+                            <p class="uk-badge uk-badge-{{ product.stock > 0 ? 'success' : 'danger' }}">
+                                {{ product.stock > 0 ? 'En stock' : 'Rupture de stock' }}
+                            </p>
+                            <p class="uk-text-lead">{{ product.description }}</p>
+                            {% if product.stock > 0 %}
+                                <a href="{{ path('front_cart_add', { 'id': product.id }) }}" class="uk-button uk-button-primary uk-button-large">Ajouter au panier</a>
+                            {% else %}
+                                <button class="uk-button uk-button-secondary uk-button-large" disabled>Indisponible</button>
+                            {% endif %}
+                            
+                            <hr class="uk-divider-icon">
+                            
+                            <div class="uk-child-width-1-2@s" uk-grid>
+                                <div>
+                                    <h5 class="uk-text-bold">Catégorie</h5>
+                                    <p>{{ product.category.name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="uk-text-danger">Produit non trouvé.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    
 {% endblock %}

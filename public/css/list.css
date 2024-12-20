@@ -1,0 +1,17 @@
+
+.uk-navbar-container {
+    border-bottom: 2px var(--jaune) solid;
+}
+.uk-card-hover:hover {
+    background-color: black;
+    color: white;
+}
+.uk-card-hover:hover .uk-button {
+    display: inline-block !important;
+    background-color: var(--gris);
+    color: var(--rouge);
+}
+#adBar {
+    background-color: black;
+    color: white;
+}

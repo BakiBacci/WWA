@@ -1,0 +1,43 @@
+header {
+    border-bottom: 2px var(--jaune) solid;
+    color: black;
+    position: static;
+    height: 15vh;
+    width: 100%;
+    text-align: start;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    background-color: var(--gris);
+  }
+  
+  /* Styles supplémentaires pour les éléments à l'intérieur du header */
+  
+  .logo {
+    margin-top: 10px;
+  }
+  
+  #logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .links {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: black;
+    font-size: 1em;
+    position: relative;
+   display: inline-block;
+  }
+  
+  .links a:hover {
+    color: var(--jaune);
+  }

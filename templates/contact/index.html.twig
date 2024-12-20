@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    
+
+    <main class="uk-container uk-margin-top uk-margin-bottom">
+        <h1 class="uk-heading-medium">Contact</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="uk-alert-success" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+
+        {{ form_start(form, {'attr': {'class': 'uk-form-stacked'}}) }}
+            <div class="uk-margin">
+                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'uk-form-label'}}) }}
+                <div class="uk-form-controls">
+                    {{ form_widget(form.email, {'attr': {'class': 'uk-input'}}) }}
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                {{ form_label(form.message, 'Message', {'label_attr': {'class': 'uk-form-label'}}) }}
+                <div class="uk-form-controls">
+                    {{ form_widget(form.message, {'attr': {'class': 'uk-textarea', 'rows': '5'}}) }}
+                </div>
+            </div>
+
+            <button type="submit" class="uk-button uk-button-primary">Envoyer</button>
+        {{ form_end(form) }}
+    </main>
+
+    
+{% endblock %}

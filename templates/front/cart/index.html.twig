@@ -1,54 +1,100 @@
 {% extends 'front/base.html.twig' %}
 
 {% block title %}
-	{{ parent()}}Panier!
+    {{ parent() }}Panier!
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .table {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            padding: 10px;
+            text-align: center;
+        }
+        .btn {
+            padding: 5px 10px;
+            margin: 0 2px;
+            text-decoration: none;
+            color: white;
+            border-radius: 3px;
+        }
+        .btn-success { background-color: #28a745; }
+        .btn-warning { background-color: #ffc107; }
+        .btn-danger { background-color: #dc3545; }
+        .order-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-	<main>
-		<h1>Panier</h1>
+{% include 'front/partials/_header.html.twig' %}
+    <main>
+        <h1>Panier</h1>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Produit</th>
-					<th>Produit</th>
-					<th>Quantité</th>
-					<th>Total</th>
-					<th>Action</th>
-					<th>Supprimer</th>
-				</tr>
-			</thead>
-			{% for data in dataCart %}
-				<tr>
-					<td>{{ data.product.name }}</td>
-					<td>{{ data.product.price }}</td>
-					<td>{{ data.quantity }}</td>
-					<td>{{ data.total }}</td>
-					<td>
-						<a href={{ path('front_cart_add', { 'id': data.product.id} )}} class="btn btn-success">+</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in dataCart %}
+                    <tr>
+                        <td>{{ data.product.name }}</td>
+                        <td>{{ data.product.price }} €</td>
+                        <td>{{ data.quantity }}</td>
+                        <td>{{ data.total }} €</td>
+                        <td>
+                            <a href="{{ path('front_cart_add', {'id': data.product.id}) }}" class="btn btn-success">+</a>
+                            <a href="{{ path('front_cart_decrease', {'id': data.product.id}) }}" class="btn btn-warning">-</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('front_cart_remove', {'id': data.product.id}) }}" class="btn btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3">Total</td>
+                    <td>{{ total }} €</td>
+                    <td colspan="2">
+                        <a href="{{ path('front_cart_empty') }}" class="btn btn-danger">Vider le panier</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-						<a href={{ path('front_cart_decrease', { 'id': data.product.id} )}} class="btn btn-warning">-</a>
-					</td>
-					<td>
-						<a href={{ path('front_cart_remove', { 'id': data.product.id} )}} class="btn btn-danger">Supprimer</a>
-						{# Quand j'appuye sur supprimer ça supprime toute les données pour ce produit #}
-					</td>
-				</tr>
-			{% endfor %}
-			<tr>
-				<td colspan="4">Total</td>
-				<td>{{ total }}
-					euros</td>
-				<td>
-					<a href={{ path('front_cart_empty') }}>Vider le panier</a>
-				</td>
-			</tr>
-		</table>
-
-		{% if app.session.get('cart') is not empty %}
-			<a href={{ path('front_order_index')}}>Commander</a>
-		{% endif %}
-
-	</main>
+        {% if app.session.get('cart') is not empty %}
+            <a href="{{ path('front_order_index') }}" class="order-link">Commander</a>
+        {% endif %}
+    </main>
 {% endblock %}
