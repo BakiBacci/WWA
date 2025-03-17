@@ -1,100 +1,212 @@
-{% extends 'front/base.html.twig' %}
+{% extends "./base.html.twig" %}
 
 {% block title %}
     {{ parent() }}Panier!
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
+    
     <style>
         body {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-color: #f9f9f9;
+            font-family: 'Inter', sans-serif;
         }
         main {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
-        .table {
+        .cart-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .cart-title {
+            font-size: 28px;
+            font-weight: bold;
             margin-bottom: 20px;
+            color: black;
+            font-family: 'Inter' sans-serif
         }
-        .table th, .table td {
-            padding: 10px;
-            text-align: center;
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .btn {
-            padding: 5px 10px;
-            margin: 0 2px;
+        .cart-table th, .cart-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .cart-table th {
+            font-weight: 600;
+            color: #666;
+        }
+        .cart-item__image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .cart-item__name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
             text-decoration: none;
-            color: white;
-            border-radius: 3px;
         }
-        .btn-success { background-color: #28a745; }
-        .btn-warning { background-color: #ffc107; }
-        .btn-danger { background-color: #dc3545; }
+        .cart-item__name:hover {
+            text-decoration: underline;
+        }
+        .cart-item__details {
+            font-size: 14px;
+            color: #666;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-control button {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+        .quantity-control input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .cart-summary {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+            text-align: right;
+        }
+        .cart-summary .total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
         .order-link {
             display: inline-block;
             margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 12px 24px;
+            background-color: #000;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .order-link:hover {
+            background-color: #333;
+        }
+        .cart-empty {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .cart-empty .empty-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .cart-empty .continue-shopping {
+            background-color: #000;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .cart-empty .continue-shopping:hover {
+            background-color: #333;
         }
     </style>
 {% endblock %}
 
 {% block body %}
-{% include 'front/partials/_header.html.twig' %}
+    {% include 'front/partials/_header.html.twig' %}
     <main>
-        <h1>Panier</h1>
+        <div class="cart-container">
+            <h1 class="cart-title">Panier</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                    <th>Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for data in dataCart %}
-                    <tr>
-                        <td>{{ data.product.name }}</td>
-                        <td>{{ data.product.price }} €</td>
-                        <td>{{ data.quantity }}</td>
-                        <td>{{ data.total }} €</td>
-                        <td>
-                            <a href="{{ path('front_cart_add', {'id': data.product.id}) }}" class="btn btn-success">+</a>
-                            <a href="{{ path('front_cart_decrease', {'id': data.product.id}) }}" class="btn btn-warning">-</a>
-                        </td>
-                        <td>
-                            <a href="{{ path('front_cart_remove', {'id': data.product.id}) }}" class="btn btn-danger">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <td colspan="3">Total</td>
-                    <td>{{ total }} €</td>
-                    <td colspan="2">
-                        <a href="{{ path('front_cart_empty') }}" class="btn btn-danger">Vider le panier</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            {% if dataCart is empty %}
+                <div class="cart-empty">
+                    <p class="empty-text">Votre panier est vide.</p>
+                    <a href="{{ path('front_products_list') }}" class="continue-shopping">Continuer votre shopping</a>
+                </div>
+            {% else %}
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in dataCart %}
+                            <tr>
+                                <td>
+                                    <div class="cart-item">
+                                        <img src="{{ asset('images/products/' ~ data.product.image) }}" alt="{{ data.product.name }}" class="cart-item__image">
+                                        <div class="cart-item__details">
+                                            <a href="{{ path('front_products_show', { slug: data.product.slug }) }}" class="cart-item__name">
+                                                {{ data.product.name }}
+                                            </a>
+                                            <div class="product-option">
+                                                Color: Black, Size: M
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ data.product.price }} €</td>
+                                <td>
+                                    <div class="quantity-control">
+                                        <a href="{{ path('front_cart_decrease', {'id': data.product.id}) }}" class="btn btn-warning">-</a>
+                                        <input type="text" value="{{ data.quantity }}" readonly>
+                                        <a href="{{ path('front_cart_add', {'id': data.product.id}) }}" class="btn btn-success">+</a>
+                                    </div>
+                                </td>
+                                <td>{{ data.total }} €</td>
+                                <td>
+                                    <a href="{{ path('front_cart_remove', {'id': data.product.id}) }}" class="btn btn-danger">Retirer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-        {% if app.session.get('cart') is not empty %}
-            <a href="{{ path('front_order_index') }}" class="order-link">Commander</a>
-        {% endif %}
+                <div class="cart-summary">
+                    <p class="total">Total: {{ total }} €</p>
+                    <a href="{{ path('front_cart_empty') }}" class="btn btn-danger">Empty Cart</a>
+                    <a href="{{ path('front_order_index') }}" class="order-link">Checkout</a>
+                </div>
+            {% endif %}
+        </div>
     </main>
 {% endblock %}

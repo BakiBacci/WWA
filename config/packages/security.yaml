@@ -17,12 +17,12 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: app_login
+                login_path: front_auth_index
                 check_path: app_login
                 default_target_path: front_home_index
                 enable_csrf: true
             logout:
-                path: app_logout
+                path: front_auth_logout
                 # where to redirect after logout
                 target: front_home_index
 

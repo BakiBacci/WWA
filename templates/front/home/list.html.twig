@@ -1,5 +1,4 @@
-{% extends "front/base.html.twig" %}
-
+{% extends 'base.html.twig' %}
 
 {% block title %}{{ parent() }} Produits{% endblock %}
 
@@ -7,17 +6,50 @@
     {{ parent() }}
     <link rel="stylesheet" href={{ asset('css/style.css') }}>
     <link rel="stylesheet" href={{ asset('css/list.css') }}>
+     <style>
+     body {
+    font-family: 'Inter', sans-serif;
+}
+h1{
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+    margin-left: 15px
+}
+
+.uk-card-title {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.uk-card:hover .uk-card-title {
+    opacity: 1;
+}
+
+.uk-button-text {
+    padding: 8px 16px;
+    font-family: 'Inter', sans-serif;
+    display: inline-block !important;
+    background-color: #000;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.uk-button-text:hover {
+    background-color: #333;
+}
+     </style>
 {% endblock %}
 
 {% block body %}
-    
-{% include 'front/partials/_header.html.twig' %}
+    {% include 'front/partials/_header.html.twig' %}
     <main>
         <div id="adBar" class="uk-padding-small uk-text-center">
             <p class="uk-margin-remove">Livraison gratuite et simple !</p>
         </div>
         
-        <h1 class="uk-heading-medium uk-text-center uk-margin-medium-top">Produits populaires</h1>
+        <h1 >Produits populaires</h1>
         
         <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-padding" uk-grid>
             {% for product in products %}
@@ -28,8 +60,8 @@
                         </div>
                         <div class="uk-card-body">
                             <h3 class="uk-card-title">{{ product.name }} - {{ product.price }}€</h3>
-                            <a href="{{ path('front_products_show', {'slug': product.slug}) }}" class="uk-button uk-button-text" style="display: none;">
-                                acheter <span uk-icon="cart"></span>
+                            <a href="{{ path('front_products_show', {'slug': product.slug}) }}" class="uk-button uk-button-text">
+                                acheter
                             </a>
                         </div>
                     </div>
@@ -37,6 +69,4 @@
             {% endfor %}
         </div>
     </main>
-
-    
 {% endblock %}

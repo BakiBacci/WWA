@@ -41,6 +41,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * Mot de passe en clair (non stocké en base de données)
+     */
+    private ?string $plainPassword = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 
@@ -154,12 +159,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * Getter pour le mot de passe en clair.
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Setter pour le mot de passe en clair.
+     */
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    /**
      * @see UserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Effacez le mot de passe en clair après qu'il ait été utilisé
+        $this->plainPassword = null;
     }
 
     public function getLastName(): ?string

@@ -1,10 +1,10 @@
-{% extends "front/base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block title %}WE WANT ALL ! - Accueil{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    
     <style>
         body, html {
             height: 100%;
@@ -16,7 +16,7 @@
             position: relative;
             z-index: -2;
             width: 100%;
-            height: 100vh; /* Pleine hauteur de la fenêtre */
+            height: 100vh; 
             overflow: hidden;
         }
         
@@ -32,24 +32,41 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 95%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: flex-start;
+            align-items: flex-start; 
             padding: 20px;
         }
         
-        h1 {
-            margin-top: 20px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
+        
+        .logo-link {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 70px;
+    color: #d04a3f;
+    text-decoration: none;
+    transition: color 1s ease;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+    font-weight: 900;
+}
+
+
+.logo-link:hover {
+    color: white;
+    text-decoration: none
+}
+
+
         
         .nav-links {
             margin-top: 20px;
             margin-left: 20px;
             text-align: left;
+            
         }
         
         .nav-links a {
@@ -57,12 +74,17 @@
             margin: 30px 0;
             color: white;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 19px;
+         font-family: 'Inter',sans-serif;
         }
         .uk-text_large{
             text-align: center;
 
+
         }
+
+      
+        
     </style>
 {% endblock %}
 
@@ -74,19 +96,16 @@
             </video>
         </section>
         
-        <div class="content uk-light">
-            <h1><a class="uk-logo uk-text-large" href="{{ path('front_home_index') }}">WE WANT ALL!</a></h1>
+        <div class="content">
+            <h1><a  href="{{ path('front_home_index') }}" class="logo-link" >WE WANT ALL!</a></h1>
             
             <nav class="nav-links">
                 <a href="{{ path('front_products_list') }}">Store</a>
-                <a href="{{ path('app_auth') }}">Se connecter/Inscription</a>
-                <a href="{{ path('app_about') }}">À propos de nous</a>
+                <a href="{{ path('front_auth_index') }}">Se connecter/Inscription</a>
+                <a href="{{ path('front_contact') }}">À propos de nous</a>
                 <a href="{{ path('front_home_terms_conditions') }}">Conditions du site</a>
             </nav>
         </div>
     </main>
 {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset('js/main.js') }}" defer></script>
-{% endblock %}

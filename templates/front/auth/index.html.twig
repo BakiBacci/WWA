@@ -1,8 +1,8 @@
-{% extends 'security/base.html.twig' %}
-
+{% extends 'base.html.twig' %}
 {% block title %}Connexion / Inscription{% endblock %}
 
 {% block body %}
+{% include 'front/partials/_header.html.twig' %}
 <style>
     /* Utiliser Flexbox pour aligner les formulaires côte à côte */
     .form-container {
@@ -17,13 +17,15 @@
     .form-section {
         flex: 1;
         max-width: 400px;
-        margin: 0 20px;
+        margin: 0 30px;
     }
 
     /* Styles pour les champs de formulaire */
     .uk-form-stacked .uk-form-label {
         font-weight: bold;
         margin-bottom: 5px;
+        margin-top: 10px;
+        font-family: 'Inter', sans-serif; 
     }
 
     .uk-form-stacked .uk-input,
@@ -46,6 +48,11 @@
         padding: 10px;
         font-size: 16px;
         margin-top: 15px;
+        
+    }
+
+    h2{
+        font-family: 'Inconsolata', sans-serif;
     }
 </style>
 
@@ -59,8 +66,8 @@
             </div>
         {% endif %}
         {{ form_start(loginForm, {'attr': {'class': 'uk-form-stacked'}}) }}
-            {{ form_row(loginForm.email, {'label': 'Adresse email', 'attr': {'class': 'uk-input'}}) }}
-            {{ form_row(loginForm.password, {'label': 'Mot de passe', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(loginForm._username, {'label': 'Adresse email', 'attr': {'class': 'uk-input'}}) }}
+            {{ form_row(loginForm._password, {'label': 'Mot de passe', 'attr': {'class': 'uk-input'}}) }}
             <button type="submit" class="uk-button uk-button-primary">Se connecter</button>
         {{ form_end(loginForm) }}
     </div>

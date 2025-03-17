@@ -11,7 +11,7 @@
   --blgris: #c4dad6;
   --violetclr: #857e95;
   --marron: #8a6124;
-  --rouge: #d04a3f;
+  --rouge: #d04a3f;  
   --bleu: #1b3d85;
   --gris: #cdcccc;
   --grisfoncé: #545454;
@@ -29,6 +29,7 @@
     flex-direction: column;
     gap: 5px;
     margin: 0;
+    padding: 15px
     
   }
 
@@ -36,13 +37,15 @@
 
   .logo {
     margin-top: 10px;
+    font-family: 'Bebas Neue',sans-serif
   }
 
   #logo {
-    font-size: 1.5em;
+    font-size: 40px;
     font-weight: bold;
     text-decoration: none;
     color:var(--rouge);
+    
     
   }
 
@@ -56,6 +59,7 @@
   text-decoration: none;
   color: black;
   font-size: 1em;
+  font-family: 'Inter', sans-serif;
   position: relative;
   display: inline-block;
   padding: 5px 10px; /* Ajout de padding pour plus d'espace */
@@ -83,6 +87,7 @@
 
 .links a:hover span.text {
   opacity: 1;
+  color:rgb( 0 , 0 , 0)
 }
 
 .icon {
@@ -112,12 +117,12 @@
         <span class="icon" uk-icon="user"></span>
         <span class="text">Profil</span>
       </a>
-      <a href="{{ path('app_logout') }}">
+      <a href="{{ path('front_auth_logout') }}">
         <span class="icon" uk-icon="sign-out"></span>
         <span class="text">Déconnexion</span>
       </a>
     {% else %}
-      <a href="{{ path('app_auth') }}">
+      <a href="{{ path('front_auth_index') }}">
         <span class="icon" uk-icon="sign-in"></span>
         <span class="text">Connexion</span>
       </a>

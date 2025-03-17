@@ -2,75 +2,66 @@
 
 namespace App\Controller\Security;
 
-use App\Entity\User;
-use App\Form\RegistrationFormType;
-use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Form\LoginType;
+use App\Form\RegistrationType;
+use App\Entity\User;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[Route('/auth', name: 'front_auth_')]
 class AuthController extends AbstractController
 {
-    private UserPasswordHasherInterface $userPasswordHasher;
-
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
-    {
-        $this->userPasswordHasher = $userPasswordHasher;
-    }
-
-    #[Route('/auth', name: 'app_auth')]
-    public function index(Request $request, AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
-    {
-        // Formulaire d'inscription
+    #[Route('/', name: 'index', methods: ['GET', 'POST'])]
+    public function index(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher,
+        AuthenticationUtils $authenticationUtils
+    ): Response {
+       
         $user = new User();
-        $registrationForm = $this->createForm(RegistrationFormType::class, $user);
+        $registrationForm = $this->createForm(RegistrationType::class, $user);
+
         $registrationForm->handleRequest($request);
 
-        // Formulaire de connexion
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-        $loginForm = $this->createForm(LoginType::class);
-
-        // Traitement du formulaire d'inscription
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
-            // Hachage du mot de passe et enregistrement de l'utilisateur
-            $user->setPassword(
-                $this->userPasswordHasher->hashPassword(
-                    $user,
-                    $registrationForm->get('plainPassword')->getData()
-                )
+            $plainPassword= $registrationForm->get('plainPassword')->getData();
+            
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,$plainPassword
             );
-
-            // Enregistrez l'utilisateur dans la base de données
+            $user->setPassword($hashedPassword);
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Redirigez vers la page de connexion ou affichez un message de succès
-            return $this->redirectToRoute('app_login'); // ou une autre route
+            
+            return $this->redirectToRoute('front_auth_index');
         }
 
-        return $this->render('security/index.html.twig', [
+        
+        $loginForm = $this->createForm(LoginType::class);
+
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+
+        return $this->render('front/auth/index.html.twig', [
             'registrationForm' => $registrationForm->createView(),
             'loginForm' => $loginForm->createView(),
-            'last_username' => $lastUsername,
-            'error' => $error,
+            'error' => $error, 
         ]);
     }
 
-    #[Route(path: '/connexion', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        // Cette méthode est maintenant intégrée dans le formulaire d'authentification général
-        return new Response(); // Vous pouvez laisser cela vide ou gérer une redirection si nécessaire.
-    }
-
-    #[Route(path: '/deconnexion', name: 'app_logout')]
+    #[Route('/logout', name: 'logout', methods: ['GET'])]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        
+        throw new \LogicException('Cette méthode doit être interceptée par le pare-feu de déconnexion de Symfony.');
     }
 }

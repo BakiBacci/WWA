@@ -1,83 +1,129 @@
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <style>
-    footer {
-        width: 100%;
-        background-color: var(--gris);
-        color: black;
-        display: flex;
-        flex-direction: column;
-        min-height: 30vh;
-    }
-    .footer-main {
-        flex-grow: 1;
-        padding: 20px;
-    }
-    .footer-copyright {
-        background-color: rgba(0,0,0,0.1);
-        padding: 10px 20px;
-    }
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .uk-iconnav {
-        margin: 0;
-    }
-    .uk-iconnav > * {
-        padding-left: 10px;
-    }
-</style>
+/* Style de base pour le footer */
+footer {
+    background-color: #333; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    padding: 20px;
+    text-align: center;
+    
+}
 
-<footer class="uk-section-secondary uk-light">
-    <div class="footer-main">
-        <div class="footer-content uk-grid-large" uk-grid>
-            <!-- Colonne 1 : Logo et description -->
-            <div class="uk-width-1-3@m">
-                <img src="/images/logo.png" alt="Fenom Logo" class="uk-margin-bottom" width="100">
-                <p class="uk-text-small">Description courte de votre entreprise ou slogan</p>
-            </div>
-            
-            <!-- Colonne 2 : Liens rapides -->
-            <div class="uk-width-1-3@m">
-                <h3 class="uk-h4">Liens rapides</h3>
-                <ul class="uk-list">
-                    <li><a class="uk-link-text" href="{{ path('front_home_index') }}">Accueil</a></li>
-                    <li><a class="uk-link-text" href="{{ path('front_products_list') }}">Produits</a></li>
-                    <li><a class="uk-link-text" href="{{ path('app_about') }}">À propos</a></li>
-                    <li><a class="uk-link-text" href="{{ path('app_contact') }}">Contact</a></li>
-                </ul>
-            </div>
-            
-            <!-- Colonne 3 : Informations légales -->
-            <div class="uk-width-1-3@m">
-                <h3 class="uk-h4">Informations légales</h3>
-                <ul class="uk-list">
-                    <li><a class="uk-link-text" href="{{ path('front_home_terms_conditions') }}">Conditions générales</a></li>
-                    <li><a class="uk-link-text" href="{{ path('app_cgv') }}">C.G.V.</a></li>
-                    <li><a class="uk-link-text" href="{{ path('app_faq') }}">F.A.Q.</a></li>
-                    <li><a class="uk-link-text" href="{{ path('app_mentions_legales') }}">Mentions Légales</a></li>
-                </ul>
-            </div>
+/* Contenu du footer */
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Sections du footer */
+.footer-section {
+    margin: 10px;
+    flex: 1;
+    min-width: 200px; /* Largeur minimale pour éviter le sur-compressement */
+}
+
+.footer-section h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: none;
+    color: rgb(117, 116, 113)
+}
+
+/* Style pour le logo WWA */
+.wwa-logo {
+    font-family: 'Bebas Neue', sans-serif; /* Police Bebas Neue */
+    font-size: 65px; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    color: #fff ; /* Couleur du texte */
+    text-decoration: none; /* Supprimer le soulignement */
+    display: block; /* Pour centrer le texte */
+    margin-bottom: 10px; /* Espacement avec les liens rapides */
+}
+
+.wwa-logo:hover {
+    color: rgb(117, 116, 113); /* Changement de couleur au survol */
+    text-decoration: none;
+}
+
+/* Style pour les icônes UIkit */
+.uk-iconnav {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacement entre les icônes */
+}
+
+.uk-iconnav a {
+    color: #fff; /* Couleur des icônes */
+    transition: color 0.3s ease; /* Transition fluide */
+}
+
+.uk-iconnav a:hover {
+    color: rgb(117, 116, 113); /* Changement de couleur au survol */
+}
+
+/* Section copyright */
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.2); /* Fond légèrement plus sombre */
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.9em;
+}
+</style>
+{% endblock %}
+<footer>
+    <div class="footer-content">
+        <!-- Section des liens rapides avec WWA -->
+        <div class="footer-section">
+            <a href="{{ path('front_home_index') }}" class="wwa-logo">WWA!</a>
+            <h3>Liens rapides</h3>
+            <ul>
+                
+                <li><a href="{{ path('front_products_list') }}">Produits</a></li>
+                <li><a href="{{ path('front_about') }}">À propos</a></li>
+                <li><a href="{{ path('front_contact') }}">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Section des réseaux sociaux avec icônes UIkit -->
+        <div class="footer-section">
+            <h3>Suivez-nous</h3>
+            <ul class="social-links uk-iconnav">
+                <li><a href="#" target="_blank" uk-icon="icon: facebook"></a></li>
+                <li><a href="#" target="_blank" uk-icon="icon: twitter"></a></li>
+                <li><a href="https://www.instagram.com/wewant.all/" target="_blank" uk-icon="icon: instagram"></a></li>
+            </ul>
         </div>
     </div>
-    
-    <div class="footer-copyright">
-        <div class="uk-container uk-container-expand">
-            <div class="uk-flex uk-flex-between uk-flex-middle">
-                <div>
-                    <p>&copy; {{ "now"|date("Y") }} WeWantAll. Tous droits réservés.</p>
-                </div>
-                <div>
-                    <ul class="uk-iconnav">
-                        <li><a href="https://www.facebook.com" target="_blank" uk-icon="icon: facebook"></a></li>
-                        <li><a href="https://www.twitter.com" target="_blank" uk-icon="icon: twitter"></a></li>
-                        <li><a href="https://www.instagram.com" target="_blank" uk-icon="icon: instagram"></a></li>
-                        <li><a href="https://www.linkedin.com" target="_blank" uk-icon="icon: linkedin"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
+    <!-- Section copyright -->
+    <div class="footer-bottom">
+        <p>&copy; {{ "now"|date("Y") }} WeWantAll. Tous droits réservés.</p>
     </div>
 </footer>
