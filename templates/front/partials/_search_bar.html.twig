@@ -1,0 +1,29 @@
+<style>
+input{
+    height: 27px;
+    padding:2px;
+    border-bottom:solid 1px black;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    font-family: 'Inter', sans-serif;
+}
+
+button{
+    background-color: white;
+    border:none;
+    font-family: 'Inter', sans-serif;
+}
+</style>
+
+
+<form action="{{ path('front_products_search') }}" class="search-form">
+    <input 
+        type="text" 
+        name="q" 
+        placeholder="Rechercher un produit..." 
+        data-autocomplete-url="{{ path('front_products_search') }}"
+    >
+    <button type="submit">Rechercher</button>
+    <div class="search-results"></div>
+</form>

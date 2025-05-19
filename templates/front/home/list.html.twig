@@ -1,45 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Produits{% endblock %}
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href={{ asset('css/style.css') }}>
     <link rel="stylesheet" href={{ asset('css/list.css') }}>
-     <style>
-     body {
-    font-family: 'Inter', sans-serif;
-}
-h1{
-    font-family: 'Inter', sans-serif;
-    text-align: left;
-    margin-left: 15px
-}
-
-.uk-card-title {
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-.uk-card:hover .uk-card-title {
-    opacity: 1;
-}
-
-.uk-button-text {
-    padding: 8px 16px;
-    font-family: 'Inter', sans-serif;
-    display: inline-block !important;
-    background-color: #000;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.uk-button-text:hover {
-    background-color: #333;
-}
-     </style>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            margin-top: 20px
+        }
+        
+        h1 {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+        
+        .search-container {
+            width: 300px; /* Ajustez selon vos besoins */
+        }
+        
+        .uk-card-title {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .uk-card:hover .uk-card-title {
+            opacity: 1;
+        }
+        
+        .uk-button-text {
+            padding: 8px 16px;
+            font-family: 'Inter', sans-serif;
+            display: inline-block !important;
+            background-color: #000;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .uk-button-text:hover {
+            background-color: #333;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -49,7 +60,12 @@ h1{
             <p class="uk-margin-remove">Livraison gratuite et simple !</p>
         </div>
         
-        <h1 >Produits populaires</h1>
+        <div class="header-container">
+            <h1>Produits populaires</h1>
+            <div class="search-container">
+                {{ include('front/partials/_search_bar.html.twig') }}
+            </div>
+        </div>
         
         <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-padding" uk-grid>
             {% for product in products %}

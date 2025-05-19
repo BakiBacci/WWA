@@ -40,4 +40,14 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function search(string $query): array
+     {
+    return $this->createQueryBuilder('p')
+        ->where('p.name LIKE :q')
+        ->setParameter('q', '%' . $query . '%')
+        ->getQuery()
+        ->getResult();
+}
+
 }

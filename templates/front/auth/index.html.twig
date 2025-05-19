@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block title %}Connexion / Inscription{% endblock %}
 
+
+
 {% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
 {% include 'front/partials/_header.html.twig' %}
 <style>
     /* Utiliser Flexbox pour aligner les formulaires côte à côte */
